@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}HR Interview{% endblock %}
+
+{% block content %}
+
+<style>
+.container{
+    max-width:900px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#1e3a8a;
+}
+
+.btn{
+    display:block;
+    width:250px;
+    margin:20px auto;
+    padding:15px;
+    font-size:18px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.questions{
+    margin-top:30px;
+    line-height:1.9;
+    font-size:18px;
+    white-space:pre-wrap;
+}
+
+
+.btn-group{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+
+.submit-btn,
+.skip-btn{
+    padding:12px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+}
+
+.submit-btn{
+    background:#007bff;
+}
+
+.skip-btn{
+    background:#ff9800;
+}
+
+</style>
+
+<div class="container">
+<h2>Question {{ question_no }}</h2>
+<h3>{{ question }}</h3>
+
+<form action="/evaluate_hr" method="POST">
+
+<textarea
+name="answer"
+rows="8"
+required>
+</textarea>
+
+<input
+type="hidden"
+name="question"
+value="{{ question }}">
+
+
+
+<div class="btn-group">
+
+    <button type="submit" class="submit-btn">
+        Submit Answer
+    </button>
+
+    <a href="/hr">
+        <button type="button" class="skip-btn">
+            Skip Question
+        </button>
+    </a>
+
+</div>
+
+</form>
+
+
+
+
+{% endblock %}

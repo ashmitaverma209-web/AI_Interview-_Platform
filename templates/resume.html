@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="resume-box">
+
+    <h1>📄 Upload Your Resume</h1>
+
+    <form action="/resume" method="POST" enctype="multipart/form-data">
+
+        <input type="file"
+               name="resume"
+               accept=".pdf,.doc,.docx"
+               required>
+    
+        <label><b>Paste Job Description</b></label>
+
+        <textarea
+        name="job_description"
+        rows="10"
+        placeholder="Paste the company's job description here..."
+        required>
+        </textarea>
+               
+        <button class="upload-btn">
+            Upload Resume
+        </button>
+
+
+
+    </form>
+
+</div>
+
+{% endblock %}

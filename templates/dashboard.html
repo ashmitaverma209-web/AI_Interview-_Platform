@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+
+<div class="dashboard">
+
+    <div class="card">
+        <h2>💼 HR Interview</h2>
+        <p>Progress : {{ hr_progress }}/10</p>
+
+        <div class="buttons">
+            <a href="/hr"><button class="continue">Continue</button></a>
+            <a href="/restart_hr"><button class="restart">Restart</button></a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>💻 Technical Interview</h2>
+        <p>Progress : {{ tech_progress }}/10</p>
+
+        <div class="buttons">
+            <a href="/technical"><button class="continue">Continue</button></a>
+            <a href="/restart_technical"><button class="restart">Restart</button></a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>👨‍💻 Coding Interview</h2>
+        <p>Progress : {{ coding_progress }}/10</p>
+
+        <div class="buttons">
+            <a href="/coding"><button class="continue">Continue</button></a>
+            <a href="/restart_coding"><button class="restart">Restart</button></a>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

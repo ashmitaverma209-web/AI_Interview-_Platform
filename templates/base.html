@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}AI Interview platform{% endblock %}</title>
+    <link rel ="stylesheet"
+          href="{{ url_for('static',filename='css/style.css')}}">
+</head>    
+<body>
+<nav>
+    <h2>AI Interview Platform</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>    
+{% block content %}
+{% endblock %}
+</body>
+</html>

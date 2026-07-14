@@ -1,0 +1,358 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#eef2ff;
+}
+
+nav{
+    background:#1e3a8a;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:18px;
+}
+
+.hero{
+    text-align:center;
+    margin-top:120px;
+}
+
+.hero h1{
+    font-size:48px;
+    color:#1e3a8a;
+}
+
+.hero p{
+    margin-top:20px;
+    font-size:22px;
+}
+
+button{
+    margin-top:30px;
+    padding:15px 35px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.form-box{
+    width:400px;
+    margin:80px auto;
+    background:rgb(95, 102, 131);
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px gray;
+}
+
+.form-box h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.form-box input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid gray;
+    border-radius:5px;
+}
+
+.form-box button{
+    width:100%;
+}
+
+.hero{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.hero h1{
+    font-size:50px;
+    color:#1e3a8a;
+}
+
+.hero p{
+    margin-top:20px;
+    font-size:22px;
+}
+
+.buttons{
+    margin-top:35px;
+  
+}
+
+.buttons button{
+    margin:10px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+    width:80%;
+    margin:60px auto;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h2{
+    color:#2563eb;
+}
+
+
+.btn-container{
+    text-align:center;
+    margin-top:30px;
+}
+
+.next-btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:14px 30px;
+    font-size:18px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.next-btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.05);
+}
+
+textarea{
+    width: 100%;
+    max-width: 800px;
+    height: 180px;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    resize: none;
+    margin-top: 20px;
+}
+
+
+ /* ----------------dashboard Style (scoring system) ------------ */
+
+body{
+    background:#f4f7fc;
+    font-family:Arial,sans-serif;
+}
+
+.dashboard{
+    width:80%;
+    margin:40px auto;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    text-align:center;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h2{
+    color:#0d47a1;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:22px;
+    color:#555;
+    margin-bottom:20px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.continue,
+.restart{
+    width:170px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.continue{
+    background:#2196f3;
+}
+
+.continue:hover{
+    background:#1565c0;
+}
+
+.restart{
+    background:#ff9800;
+}
+
+.restart:hover{
+    background:#ef6c00;
+}
+
+/*---------------- Resume Box---------------  */
+
+body{
+    background:#f4f7fc;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.resume-box{
+    width:550px;
+    margin:60px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+.resume-box h1{
+    color:#1e3a8a;
+    margin-bottom:25px;
+}
+
+input[type=file]{
+    width:100%;
+    padding:15px;
+    border:2px dashed #3b82f6;
+    border-radius:12px;
+    background:#eef5ff;
+    cursor:pointer;
+    margin-bottom:25px;
+}
+
+.upload-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.upload-btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.03);
+}
+
+
+/* ----------------resume analysis-------- */
+
+.result-container{
+    width:80%;
+    max-width:900px;
+    margin:50px auto;
+    background:#fff;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.result-container h1{
+    text-align:center;
+    color:#1e3a8a;
+    font-size:40px;
+    margin-bottom:30px;
+}
+
+.score-card{
+    background:#f8fbff;
+    border-left:8px solid #2563eb;
+    padding:30px;
+    border-radius:15px;
+    font-size:18px;
+    line-height:1.9;
+    white-space:pre-wrap;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 35px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(37,99,235,.4);
+}
+
+.back-btn{
+    margin-left:20px;
+    background:#10b981;
+}
+
+body{
+    background:linear-gradient(135deg,#eef5ff,#dbeafe);
+    font-family:'Segoe UI',sans-serif;
+}
+
+/* -------Job description------------- */
+textarea{
+    width:100%;
+    height:220px;
+    padding:15px;
+    border:2px solid #2563eb;
+    border-radius:10px;
+    font-size:16px;
+    margin-top:10px;
+    margin-bottom:20px;
+    resize:vertical;
+}

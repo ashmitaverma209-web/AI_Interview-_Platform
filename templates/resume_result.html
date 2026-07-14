@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<div class="result-container">
+
+    <h1>📄 AI Resume Analysis</h1>
+
+    <div class="score-card">
+        {{ result|safe }}
+    </div>
+
+    <a href="/resume" class="btn">Analyze Another Resume</a>
+
+    <a href="/dashboard" class="btn back-btn">Dashboard</a>
+
+</div>
+
+{% endblock %}

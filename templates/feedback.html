@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+Feedback
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.box{
+
+width:900px;
+
+margin:auto;
+
+background:white;
+
+padding:30px;
+
+margin-top:40px;
+
+border-radius:10px;
+
+box-shadow:0 0 15px gray;
+
+white-space:pre-wrap;
+
+line-height:1.8;
+
+}
+
+</style>
+
+<div class="box">
+
+<h1>🤖 AI Feedback</h1>
+
+{{ feedback }}
+
+
+<br><br>
+
+<div class="btn-container">
+    <a href="/hr" class="next-btn">➡️ Next Question</a>
+</div>
+
+
+</div>
+
+{% endblock %}
