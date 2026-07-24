@@ -356,3 +356,204 @@ textarea{
     margin-bottom:20px;
     resize:vertical;
 }
+
+
+
+
+
+/*----------------- final result report button------------- */
+
+.final-report{
+    text-align:center;
+    margin-top:40px;
+}
+
+.report-btn{
+    width:350px;
+    padding:15px;
+    font-size:20px;
+    font-weight:bold;
+    color:white;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    transition:0.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.report-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.3);
+}
+
+
+
+/* -----------ai report------------ */
+
+.ai-report{
+    margin-top:50px;
+}
+
+.ai-report h2{
+    text-align:center;
+    font-size:34px;
+    color:#1e3a8a;
+    margin-bottom:25px;
+} 
+
+
+
+
+
+
+/* 9880090 */
+
+/* ===========================
+   AI Career Recommendation
+=========================== */
+
+.ai-report{
+    width:90%;
+    max-width:1100px;
+    margin:60px auto;
+}
+
+.ai-report h2{
+    text-align:center;
+    font-size:38px;
+    color:#1e3a8a;
+    margin-bottom:35px;
+    font-weight:bold;
+}
+
+.report-box{
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+
+    border-top:6px solid #2563eb;
+
+}
+
+/* Individual Sections */
+
+.section{
+
+    background:#f8fbff;
+
+    border-left:8px solid #2563eb;
+
+    padding:22px;
+
+    margin-bottom:25px;
+
+    border-radius:15px;
+
+    transition:.3s;
+
+}
+
+.section:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 8px 25px rgba(37,99,235,.15);
+
+}
+
+/* Headings */
+
+.section h3{
+
+    color:#1d4ed8;
+
+    font-size:26px;
+
+    margin-bottom:15px;
+
+}
+
+/* Paragraph */
+
+.section p{
+
+    font-size:18px;
+
+    color:#333;
+
+    line-height:1.9;
+
+}
+
+/* Lists */
+
+.section ul{
+
+    padding-left:25px;
+
+    margin-top:10px;
+
+}
+
+.section li{
+
+    font-size:18px;
+
+    color:#444;
+
+    margin-bottom:10px;
+
+    line-height:1.8;
+
+}
+
+/* Bold Text */
+
+.section strong{
+
+    color:#111827;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.ai-report{
+
+width:95%;
+
+}
+
+.ai-report h2{
+
+font-size:30px;
+
+}
+
+.report-box{
+
+padding:20px;
+
+}
+
+.section h3{
+
+font-size:22px;
+
+}
+
+.section p,
+.section li{
+
+font-size:16px;
+
+}
+
+}

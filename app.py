@@ -1,15 +1,36 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User
+from models import db, User,InterviewResult
 from gemini_ai import ask_ai
 from PyPDF2 import PdfReader
 import os
 from werkzeug.utils import secure_filename
+from sqlalchemy import inspect
+import re
+
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    Table,
+    TableStyle
+)
+
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.units import inch
+from flask import send_file
+from datetime import datetime
+# from reportlab.platypus import SimpleDocTemplate, Paragraph
+# from reportlab.lib.styles import getSampleStyleSheet
+# from flask import send_file
+
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"
 if not os.path.exists("uploads"):
-    os.makedirs("upoads")
+    os.makedirs("uploads")
 
 app.secret_key = "ashmita123"
 
@@ -18,6 +39,11 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
+
+with app.app_context():
+    db.create_all()
+    print(inspect(db.engine).get_table_names())
+   
 
 # ---------------- HOME ----------------
 
@@ -147,22 +173,46 @@ Candidate Answer:
 
 Evaluate the answer.
 
-Give:
+Give exactly in this format:
 
-1. Score out of 10
-2. Strengths
-3. Weaknesses
-4. Improvements
-5. Ideal Answer
+Score: X/10
+
+Strengths:
+...
+
+Weaknesses:
+...
+
+Improvements:
+...
+
+Ideal Answer:
+...
 """
 
     feedback = ask_ai(prompt)
+
+    # Default score
+    score = 0
+
+    try:
+        import re
+
+        match = re.search(r"Score\s*:\s*(\d+)", feedback)
+
+        if match:
+            score = int(match.group(1))
+
+    except:
+        score = 0
+
+    # Session me score save karo
+    session["hr_score"] = score
 
     return render_template(
         "feedback.html",
         feedback=feedback
     )
-
 
 # ---------------- TECHNICAL ----------------
 
@@ -216,6 +266,16 @@ Give:
 """
 
     feedback = ask_ai(prompt)
+
+    import re
+    score =0
+
+    match = re.search(r"Score\s*:\s*(\d+)",feedback)
+    if match:
+        score = int(match.group(1))
+
+    session["technical_score"]= score
+
 
     session["tech_question_no"] = session.get("tech_question_no", 1) + 1
 
@@ -276,28 +336,53 @@ Candidate Code:
 
 Evaluate it.
 
-Give:
+Give exactly in this format:
 
-1. Score out of 10
-2. Correctness
-3. Time Complexity
-4. Space Complexity
-5. Strengths
-6. Weaknesses
-7. Improvements
-8. Better Approach
+Score: X/10
+
+Correctness:
+...
+
+Time Complexity:
+...
+
+Space Complexity:
+...
+
+Strengths:
+...
+
+Weaknesses:
+...
+
+Improvements:
+...
+
+Better Approach:
+...
 """
 
     feedback = ask_ai(prompt)
 
-    session["coding_question_no"] = session.get("coding_question_no",1)+1
+    
+
+    score = 0
+
+    match = re.search(r"Score\s*:\s*(\d+)", feedback)
+
+    if match:
+        score = int(match.group(1))
+
+    # Coding Score Save
+    session["coding_score"] = score
+
+    # Next Question
+    session["coding_question_no"] = session.get("coding_question_no", 1) + 1
 
     return render_template(
         "feedback.html",
         feedback=feedback
     )
-
-
 
 #---------Restart session----------
 
@@ -404,6 +489,18 @@ Resume:
 
             result = ask_ai(prompt)
 
+
+            # ATS Score Extract
+            ats_score = 0
+
+            match = re.search(r"ATS Score\s*:\s*(\d+)", result)
+
+            if match:
+              ats_score = int(match.group(1))
+
+# Session me save
+            session["ats_score"] = ats_score
+
             return render_template(
                 "resume_result.html",
                 result=result
@@ -413,6 +510,252 @@ Resume:
             return f"Error reading PDF: {e}"
 
     return render_template("resume.html")
+
+
+
+#------------------result----------------
+
+@app.route("/final_result")
+def final_result():
+
+    hr = session.get("hr_score", 0)
+
+    technical = session.get("technical_score", 0)
+
+    coding = session.get("coding_score", 0)
+
+    ats = session.get("ats_score", 0)
+
+    total = hr + technical + coding
+
+    percentage = round((total / 30) * 100, 2)
+
+    if percentage >= 60:
+        status = "PASS ✅"
+    else:
+        status = "FAIL ❌"
+
+
+
+    prompt = f"""
+You are an AI Career Coach.
+
+Candidate Performance:
+
+HR Score: {hr}/10
+Technical Score: {technical}/10
+Coding Score: {coding}/10
+ATS Score: {ats}/100
+
+Return ONLY HTML.
+
+Use this exact structure:
+
+<div class="section">
+<h3>📊 Overall Performance</h3>
+<p>...</p>
+</div>
+
+<div class="section">
+<h3>💪 Strong Areas</h3>
+<ul>
+<li>...</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>⚠️ Weak Areas</h3>
+<ul>
+<li>...</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>💼 Recommended Job Roles</h3>
+<ul>
+<li>...</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>📚 Skills to Improve</h3>
+<ul>
+<li>...</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>🎯 Final Recommendation</h3>
+<p>...</p>
+</div>
+
+Do not use markdown.
+Do not use ```html.
+Return only valid HTML.
+"""
+
+    ai_report =ask_ai(prompt)
+
+    result = InterviewResult(
+        user_name=session["user"],
+        hr_score=hr,
+        technical_score=technical,
+        coding_score=coding,
+        ats_score=ats,
+        percentage=percentage,
+        result=status
+    )
+
+    db.session.add(result)
+    db.session.commit()
+
+
+    session["final_percentage"] = percentage
+    session["final_status"] = status
+    session["ai_report"] = ai_report
+
+
+    return render_template(
+        "final_result.html",
+        hr=hr,
+        technical=technical,
+        coding=coding,
+        ats=ats,
+        percentage=percentage,
+        status=status,
+        ai_report = ai_report
+    )
+
+
+#----Test result----------
+@app.route("/test_result")
+def test_result():
+
+    return render_template(
+        "final_result.html",
+        hr=8,
+        technical=7,
+        coding=9,
+        ats=80,
+        percentage=80,
+        status="PASS 🎉"
+    )    
+
+
+#-----Download pdf--------------
+
+@app.route("/download_report")
+def download_report():
+
+    filename = "Interview_Report.pdf"
+
+    doc = SimpleDocTemplate(filename)
+
+    styles = getSampleStyleSheet()
+
+    title = styles["Heading1"]
+    title.alignment = TA_CENTER
+    title.textColor = colors.darkblue
+
+    heading = styles["Heading2"]
+    heading.textColor = colors.darkblue
+
+    normal = styles["BodyText"]
+
+    story = []
+
+    story.append(Paragraph("🤖 AI Interview Platform", title))
+    story.append(Paragraph("Final Interview Report", heading))
+    story.append(Spacer(1,20))
+
+    story.append(
+        Paragraph(
+            f"<b>Date :</b> {datetime.now().strftime('%d-%m-%Y %H:%M')}",
+            normal
+        )
+    )
+
+    story.append(Spacer(1,15))
+
+    story.append(
+        Paragraph(
+            f"<b>Overall Percentage :</b> {session.get('final_percentage',0)}%",
+            heading
+        )
+    )
+
+    story.append(
+        Paragraph(
+            f"<b>Result :</b> {session.get('final_status','N/A')}",
+            heading
+        )
+    )
+
+    story.append(Spacer(1,20))
+
+    data = [
+        ["Interview","Score"],
+
+        ["HR",
+         session.get("hr_score","-")],
+
+        ["Technical",
+         session.get("tech_score","-")],
+
+        ["Coding",
+         session.get("coding_score","-")],
+
+        ["ATS Resume",
+         session.get("ats_score","-")]
+    ]
+
+    table = Table(data,colWidths=[250,120])
+
+    table.setStyle(TableStyle([
+
+        ('BACKGROUND',(0,0),(-1,0),colors.darkblue),
+        ('TEXTCOLOR',(0,0),(-1,0),colors.white),
+
+        ('GRID',(0,0),(-1,-1),1,colors.black),
+
+        ('BACKGROUND',(0,1),(-1,-1),colors.beige),
+
+        ('ALIGN',(0,0),(-1,-1),'CENTER'),
+
+        ('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
+
+        ('BOTTOMPADDING',(0,0),(-1,0),10)
+
+    ]))
+
+    story.append(table)
+
+    story.append(Spacer(1,25))
+
+    story.append(
+        Paragraph("🤖 AI Career Recommendation",heading)
+    )
+
+    report = session.get("ai_report","")
+
+    report = report.replace("\n","<br/>")
+
+    story.append(
+        Paragraph(report,normal)
+    )
+
+    story.append(Spacer(1,30))
+
+    # story.append(
+    #     Paragraph(
+    #         "<b>Generated by AI Interview Platform</b>",
+    #         title
+    #     )
+    #)
+
+    doc.build(story)
+
+    return send_file(filename,as_attachment=True)
 
 # ---------------- MAIN ----------------
 
