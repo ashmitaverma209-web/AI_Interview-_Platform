@@ -22,10 +22,6 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.units import inch
 from flask import send_file
 from datetime import datetime
-# from reportlab.platypus import SimpleDocTemplate, Paragraph
-# from reportlab.lib.styles import getSampleStyleSheet
-# from flask import send_file
-
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"
