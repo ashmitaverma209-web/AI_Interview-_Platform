@@ -3,8 +3,6 @@
 An AI-powered Interview Preparation Platform built using **Python, Flask, SQLite, HTML, CSS, and Gemini AI**. 
 The platform helps users prepare for HR, Technical, and Coding interviews while also providing AI-based resume analysis with ATS scoring.
 
----
-
 ## ✨ Features
 
 ### 👤 User Authentication
@@ -51,8 +49,6 @@ The platform helps users prepare for HR, Technical, and Coding interviews while 
 - Progress Tracking
 - Modern User Interface
 
----
-
 ## 🛠️ Tech Stack
 
 - Python
@@ -65,8 +61,6 @@ The platform helps users prepare for HR, Technical, and Coding interviews while 
 - Gemini AI API
 - PyPDF2
 - Werkzeug
-
----
 
 ## 📂 Project Structure
 
@@ -93,9 +87,6 @@ AI-Interview-Preparation-Platform/
     ├── resume.html
     ├── resume_result.html
     └── feedback.html
-```
-
----
 
 ## 🚀 Installation
 
@@ -130,6 +121,9 @@ http://127.0.0.1:5000
 ```
 
 ---
+
+##   Live Demo 
+https://ai-interview-platform-1-847r.onrender.com
 
 ## 🌟 Future Enhancements
 
